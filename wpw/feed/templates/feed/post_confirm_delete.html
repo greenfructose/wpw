@@ -17,10 +17,10 @@
           <div class="card-body">
             <h5 class="card-title text-center"><b>Delete Post</b></h5>
             <p class="text-center">Are you sure you want to delete the post?</p><br>
-            <form class="form-signin">
+            <form class="form-signin" action="{% url 'delete_post' pk=post.pk %}">
             <div class="form-group">
                 <button class="btn btn-lg btn-danger btn-block text-uppercase" type="submit">Yes, Delete</button><br><br>
-                <a class="btn btn-lg btn-secondary btn-block text-uppercase" href="{% url 'login' %}">Cancel</a>
+                <a class="btn btn-lg btn-secondary btn-block text-uppercase" href="{% url 'home' %}">Cancel</a>
         </div>
     </form>
     </div>
