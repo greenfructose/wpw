@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
 
+import users
+
 
 class Post(models.Model):
     description = models.CharField(max_length=255, blank=True)
@@ -10,6 +12,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     user_name = models.ForeignKey(User, on_delete=models.CASCADE)
     tags = models.CharField(max_length=100, blank=True)
+    tribe = models.ForeignKey(users.models.Tribe, related_name='tribe', blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.description
