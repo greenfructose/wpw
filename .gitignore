@@ -12,6 +12,10 @@ __pycache__/
 # Config
 config.ini
 
+# Media
+
+media/
+
 # Distribution / packaging
 .Python
 build/
