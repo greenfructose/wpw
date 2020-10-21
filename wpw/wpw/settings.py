@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import configparser
 from pathlib import Path
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -139,8 +143,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # SMTP Setup
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = config['SMTP']['HOST']
+EMAIL_PORT = config['SMTP']['PORT']
+EMAIL_USE_TLS = config['SMTP']['USE_TLS']
+EMAIL_HOST_USER = config['SMTP']['USER']
+EMAIL_HOST_PASSWORD = config['SMTP']['PASSWORD']
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
