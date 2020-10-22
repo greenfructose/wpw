@@ -98,7 +98,7 @@ def delete_friend_request(request, id):
     frequest.delete()
     return HttpResponseRedirect('/users/{}'.format(request.user.profile.slug))
 
-
+@login_required
 def delete_friend(request, id):
     user_profile = request.user.profile
     friend_profile = get_object_or_404(Profile, id=id)

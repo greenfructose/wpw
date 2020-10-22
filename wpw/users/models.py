@@ -13,7 +13,7 @@ class Profile(models.Model):
     slug = AutoSlugField(populate_from='user')
     bio = models.CharField(max_length=255, blank=True)
     friends = models.ManyToManyField("Profile", blank=True)
-    tribes = models.ManyToManyField("Tribe", blank=True)
+    tribes = models.ManyToManyField('tribes.Tribe', blank=True)
 
     def __str__(self):
         return str(self.user.username)
@@ -40,12 +40,3 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return "From {}, to {}".format(self.from_user.username, self.to_user.username)
-
-
-class Tribe(models.Model):
-    name = models.CharField(max_length=70)
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
-    members = models.ManyToManyField("Profile", blank=True)
-
-    def __str__(self):
-        return str(self.name)

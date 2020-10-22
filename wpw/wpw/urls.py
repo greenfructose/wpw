@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from users import views as user_views
+from tribes import views as tribes_views
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -16,6 +17,11 @@ urlpatterns = [
     path('users/friend-request/accept/<int:id>/', user_views.accept_friend_request, name='accept_friend_request'),
     path('users/friend-request/delete/<int:id>/', user_views.delete_friend_request, name='delete_friend_request'),
     path('users/friend/delete/<int:id>/', user_views.delete_friend, name='delete_friend'),
+    path('tribes/my-tribes/', tribes_views.tribe_list, name='tribe_list'),
+    path('tribes/search-tribes/', tribes_views.search_tribes, name='search_tribes'),
+    path('tribes/join/<int:id>/', tribes_views.join_tribe, name='join_tribe'),
+    path('tribes/tribe/delete/<int:id>/', tribes_views.delete_tribe, name='delete_tribe'),
+    path('tribes/<slug>/', tribes_views.tribe_view, name='profile_view'),
     path('edit-profile/', user_views.edit_profile, name='edit_profile'),
     path('my-profile/', user_views.my_profile, name='my_profile'),
     path('search_users/', user_views.search_users, name='search_users'),
