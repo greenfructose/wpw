@@ -12,13 +12,14 @@
  	<div class="container">
 	    <div class="row">
 
-	      <div class="col-md-8">
+	      <div class="col-xl-8 m-auto order-xl-2 mb-5 mb-xl-0">
 	        {% for post in posts %}
 	        <div class="card card-signin my-5">
 	          <div class="card-body">
 	          	<a href="{{ post.user_name.profile.get_absolute_url }}"><img src="{{ post.user_name.profile.image.url }}" class="rounded-circle" width="30" height="30" alt=""></a>
 	          	<a class="text-dark" href="{{ post.user_name.profile.get_absolute_url }}"><b>{{ post.user_name }}</b></a>
-	          	<br><small class="text-muted">Posted on {{ post.date_posted }}</small>
+				<a class="p-1 mb-2 bg-primary text-white" href="/tribes/{{ post.tribe.id }}">{{ post.tribe }}</a>
+				  <br><small class="text-muted">Posted on {{ post.date_posted }}</small>
 	          	<br><br>
 	            <p class="card-text text-dark">{{ post.description }}</p>
 	          </div>

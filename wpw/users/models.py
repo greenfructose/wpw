@@ -5,6 +5,11 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.conf import settings
 from autoslug import AutoSlugField
+from tribes.models import Tribe
+
+
+def get_first_model():
+    return Tribe.objects.first()
 
 
 class Profile(models.Model):
@@ -13,7 +18,7 @@ class Profile(models.Model):
     slug = AutoSlugField(populate_from='user')
     bio = models.CharField(max_length=255, blank=True)
     friends = models.ManyToManyField("Profile", blank=True)
-    tribes = models.ManyToManyField('tribes.Tribe', blank=True)
+    tribes = models.ManyToManyField('tribes.Tribe', blank=True, default=get_first_model)
 
     def __str__(self):
         return str(self.user.username)

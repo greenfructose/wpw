@@ -13,18 +13,27 @@
 	    <div class="row">
 	      <div class="col-md-8">
 	      	<div class="card card-signin my-5">
-	      	<div class="card-body">
+	        <div class="card-body">
 	        {% for tribe in tribes %}
 	          	<a href="/tribes/{{ tribe.id }}"><img src="{{ tribe.image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
 	          	<a class="text-dark" href="/tribes/{{ tribe.id }}"><b>{{ tribe }}</b></a>
-	            <small><a class="btn btn-danger float-right" href="{% url 'delete_tribe' tribe.id %}">Leave Tribe</a></small>
-	          <br><br>
-	         {% empty %}
-	        <h5><i>You have no tribes now! Add <a href="{% url 'all_tribes' %}">tribes here!</a></i></h5>
+	          	{% if not tribe in request.user.profile.tribes.all %}
+	          	<small class="float-right">
+	                <a class='btn btn-primary mr-2' href="{% url 'join_tribe' tribe.id %}">Join Tribe</a>
+	            </small>
+	            {% else %}
+	            <small class="float-right">
+	                <a class='btn btn-danger mr-2' href="{% url 'delete_tribe' tribe.id %}">Leave Tribe</a>
+	            </small>
+	          	{% endif %}
+	          	<br><br>
+				{% empty %}
+	        <h5><i>No new tribes to add now! Please come back later!</i></h5>
 				{% endfor %}
-	        </div>
-	        </div>
-	       </div>
+	    	</div>
+	    	</div>
+
+	  	   </div>
 	  	   <div class="col-md-4">
 	  	   	<div class="card card-signin my-5">
 	  	   		<a href="{{ request.user.profile.get_absolute_url }}"><img class="card-img-top" src="{{ request.user.profile.image.url }}" alt=""></a>

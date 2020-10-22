@@ -31,10 +31,13 @@
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                    <div>
-                      <span class="heading">{{ tribe.members.count }}</span>
+                      <div>
+                      <span class="heading">Welcome to the {{ tribe }} tribe!</span>
                       </div>
                   </div>
+                    <div>
+                      <span class="heading">{{ tribe.members.count }} members</span>
+                      </div>
                 </div>
               </div>
               <div class="text-center"
@@ -49,6 +52,40 @@
         </div>
       </div>
       <br>
+        <div class="container">
+	    <div class="row">
+
+	      <div class="col-xl-8 m-auto order-xl-2 mb-5 mb-xl-0">
+	        {% for post in posts %}
+	        <div class="card card-signin my-5">
+	          <div class="card-body">
+	          	<a href="{{ post.user_name.profile.get_absolute_url }}"><img src="{{ post.user_name.profile.image.url }}" class="rounded-circle" width="30" height="30" alt=""></a>
+	          	<a class="text-dark" href="{{ post.user_name.profile.get_absolute_url }}"><b>{{ post.user_name }}</b></a>
+				<a class="p-1 mb-2 bg-primary text-white" href="/tribes/{{ post.tribe.id }}">{{ post.tribe }}</a>
+				  <br><small class="text-muted">Posted on {{ post.date_posted }}</small>
+	          	<br><br>
+	            <p class="card-text text-dark">{{ post.description }}</p>
+	          </div>
+	          <a href="{% url 'post-detail' post.id %}"><img class="card-img-top" src="{{ post.pic.url }}" alt=""></a>
+	          {% if post.tags %}
+	          <br>
+	          <p class="text-danger ml-3"><b>Tags: <i>{{ post.tags }}</i></b></p>
+	          {% endif %}
+	          <div class="card-footer">
+	          	<button class="btn btn-white mr-3 like" id="{{ post.id }}">
+			        {% if post in liked_post %}
+			            <a href="{% url 'post-like' %}" style="color:red;" id="likebtn{{ post.id }}"> Unlike</a> | {{post.likes.count}}
+			        {% else %}
+			            <a href="{% url 'post-like' %}" style="color:green;" id="likebtn{{ post.id }}"> Like</a> | {{post.likes.count}}
+			        {% endif %}
+			    </button>
+	          	<a class="btn btn-outline-info" href="{% url 'post-detail' post.id %}">Comments | {{ post.details.count }}</a>
+	          </div>
+	        </div>
+	        {% endfor %}
+	  	   </div>
+	    </div>
+	</div>
       {% if request.user == u %}
       <div class="row">
       	<div class="col-md-6">
@@ -61,11 +98,11 @@
       				{% else %}
 					{% for s_request in sent_friend_requests %}
             <a href="{{ s_request.to_user.profile.get_absolute_url }}"><img src="{{ s_request.to_user.profile.image.url }}" class="rounded mr-2" width="40" height="40" alt=""></a>
-            <a href="{{ s_request.to_user.profile.get_absolute_url }}"><b>{{ s_request.to_user.username }}</b></a> 
+            <a href="{{ s_request.to_user.profile.get_absolute_url }}"><b>{{ s_request.to_user.username }}</b></a>
             <small class="float-right">
                 <a class='btn btn-warning mr-2' href="{% url 'cancel_friend_request' s_request.to_user.id %}">Cancel</a>
             </small>
-            <br><br>  
+            <br><br>
 					{% endfor %}
 					{% endif %}
       			</div>

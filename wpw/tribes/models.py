@@ -6,7 +6,7 @@ class Tribe(models.Model):
     name = models.CharField(max_length=70)
     slug = AutoSlugField(populate_from='name')
     image = models.ImageField(default='default.png', upload_to='profile_pics')
-    members = models.ManyToManyField('users.Profile', through='Membership', blank=True)
+    members = models.ManyToManyField('users.Profile', blank=True)
 
     def __str__(self):
         return str(self.name)

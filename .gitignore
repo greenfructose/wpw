@@ -12,6 +12,10 @@ __pycache__/
 # Config
 config.ini
 
+# Migrations
+
+*/migrations/
+
 # Media
 
 wpw/media/
