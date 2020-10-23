@@ -12,9 +12,13 @@ def get_first_model():
     return Tribe.objects.first()
 
 
+def upload_path_handler(instance, filename):
+    return "users/profile_pics/{}/{}".format(instance.user.id, filename)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    image = models.ImageField(default='default.png', upload_to=upload_path_handler)
     slug = AutoSlugField(populate_from='user')
     bio = models.CharField(max_length=255, blank=True)
     friends = models.ManyToManyField("Profile", blank=True)
